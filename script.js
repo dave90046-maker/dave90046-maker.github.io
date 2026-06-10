@@ -1,37 +1,42 @@
-// Highlight active nav link on scroll
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('nav ul a');
+// Nav: background on scroll
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      navLinks.forEach(link => {
-        link.style.color = link.getAttribute('href') === `#${entry.target.id}`
-          ? 'var(--text)'
-          : '';
-      });
-    }
+// Hamburger menu
+const toggle = document.querySelector('.nav-toggle');
+const navLinks = document.querySelector('.nav-links');
+if (toggle && navLinks) {
+  toggle.addEventListener('click', () => {
+    const open = toggle.classList.toggle('open');
+    navLinks.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
   });
-}, { threshold: 0.4 });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      toggle.classList.remove('open');
+      navLinks.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+}
 
-sections.forEach(s => observer.observe(s));
-
-// Fade-in on scroll
-const fadeEls = document.querySelectorAll('.project-card, .skills-group, .about-grid, .about-stats .stat');
-
-const fadeObserver = new IntersectionObserver(entries => {
+// Scroll fade-in
+const fadeEls = document.querySelectorAll('.work-card, .deliverable, .img-grid-2col, .cs-header, .tl-block, .about-body');
+const io = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.style.opacity = '1';
       entry.target.style.transform = 'translateY(0)';
-      fadeObserver.unobserve(entry.target);
+      io.unobserve(entry.target);
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.08 });
 
 fadeEls.forEach(el => {
   el.style.opacity = '0';
-  el.style.transform = 'translateY(20px)';
-  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-  fadeObserver.observe(el);
+  el.style.transform = 'translateY(18px)';
+  el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+  io.observe(el);
 });

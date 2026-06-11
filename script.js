@@ -1,5 +1,5 @@
 // Nav: background on scroll
-const nav = document.querySelector('nav');
+const nav = document.querySelector('.site-nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });

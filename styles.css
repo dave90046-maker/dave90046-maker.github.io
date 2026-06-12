@@ -453,6 +453,20 @@ footer {
 }
 .img-grid-2col .deliverable { margin-bottom: 0; }
 
+/* Zinnia brochure + banner layout */
+.zinnia-brochure-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 3.5rem;
+  align-items: start;
+}
+.zinnia-brochure-grid .deliverable { margin-bottom: 0; }
+.zinnia-brochure-grid .deliverable:nth-child(1) { grid-column: 1; grid-row: 1; }
+.zinnia-brochure-grid .deliverable:nth-child(2) { grid-column: 1; grid-row: 2; }
+.zinnia-brochure-grid .deliverable:nth-child(3) { grid-column: 1; grid-row: 3; }
+.zinnia-brochure-grid .banner-figure { grid-column: 2; grid-row: 1 / 4; }
+
 /* Thought leadership links */
 .tl-block {
   margin-bottom: 3.5rem;
@@ -547,6 +561,16 @@ footer {
   .work-grid { grid-template-columns: 1fr; max-width: 480px; }
   .about-grid { grid-template-columns: 1fr; gap: 3rem; }
   .img-grid-2col { grid-template-columns: 1fr; }
+  .zinnia-brochure-grid {
+    grid-template-columns: 1fr;
+  }
+  .zinnia-brochure-grid .deliverable:nth-child(1),
+  .zinnia-brochure-grid .deliverable:nth-child(2),
+  .zinnia-brochure-grid .deliverable:nth-child(3),
+  .zinnia-brochure-grid .banner-figure {
+    grid-column: 1;
+    grid-row: auto;
+  }
 }
 
 @media (max-width: 768px) {

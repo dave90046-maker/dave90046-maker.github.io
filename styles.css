@@ -29,7 +29,7 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
-img { display: block; max-width: 100%; }
+img { display: block; width: 100%; height: auto; }
 a { color: inherit; text-decoration: none; }
 
 /* ── Layout ── */
@@ -521,6 +521,7 @@ footer {
   justify-content: center;
   gap: 0.5rem;
   width: 100%;
+  padding: 4rem 2rem;
   background: var(--ph-bg);
   border: 1px solid var(--ph-border);
   border-radius: var(--radius);
@@ -540,14 +541,6 @@ footer {
   text-align: center;
   padding: 0 1rem;
 }
-/* Aspect ratios */
-.ratio-16-9  { aspect-ratio: 16 / 9; }
-.ratio-3-1   { aspect-ratio: 3 / 1; }
-.ratio-5-1   { aspect-ratio: 5 / 1; }
-.ratio-3-4   { aspect-ratio: 3 / 4; }
-.ratio-1-3   { aspect-ratio: 1 / 3; }
-.ratio-2-3   { aspect-ratio: 2 / 3; }
-.ratio-4-3   { aspect-ratio: 4 / 3; }
 
 /* ── Responsive ── */
 @media (max-width: 900px) {

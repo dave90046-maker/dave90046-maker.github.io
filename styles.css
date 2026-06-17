@@ -378,7 +378,7 @@ footer {
   transition: color 0.2s;
 }
 .cs-back:hover { color: var(--accent); }
-.cs-header { max-width: 820px; margin-bottom: 4rem; }
+.cs-header { max-width: 820px; margin-bottom: 1.5rem; }
 .cs-title {
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 900;
@@ -398,6 +398,7 @@ footer {
   max-width: 760px;
   padding-top: 1.5rem;
   border-top: 1px solid var(--border);
+  margin-bottom: 0;
 }
 .cs-meta {
   display: flex;
@@ -419,7 +420,7 @@ footer {
 }
 
 /* ── Deliverables ── */
-.deliverables { padding: 4rem 0 6rem; }
+.deliverables { padding: 1.5rem 0 6rem; }
 .deliverable {
   margin-bottom: 3.5rem;
 }
@@ -628,7 +629,7 @@ footer {
   .site-nav { padding: 1.25rem 1.5rem; }
   section { padding: 4rem 0; }
   .container { padding: 0 1.25rem; }
-  .hero-content { padding: 0 1.25rem; padding-top: 6rem; }
+  .hero-content { padding: 0 1.25rem; padding-top: 1.5rem; }
   .cs-page { padding-top: 6rem; }
   .cs-nav { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
   .cs-nav-link.next { align-items: flex-start; }

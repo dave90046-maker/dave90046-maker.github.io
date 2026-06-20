@@ -11,12 +11,14 @@ if (toggle && navLinks) {
   toggle.addEventListener('click', () => {
     const open = toggle.classList.toggle('open');
     navLinks.classList.toggle('open', open);
+    nav.classList.toggle('menu-open', open);
     document.body.style.overflow = open ? 'hidden' : '';
   });
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       toggle.classList.remove('open');
       navLinks.classList.remove('open');
+      nav.classList.remove('menu-open');
       document.body.style.overflow = '';
     });
   });

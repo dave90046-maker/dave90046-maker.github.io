@@ -101,7 +101,7 @@ function parseSectionBlocks(contentText) {
 
 function parseBriefStructured(rawText) {
   const escapedHeaders = ICP_SECTION_HEADERS.map(h => h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-  const headerRegex = new RegExp(`(?:^|\\n)\\s*#{0,3}\\s*\\**\\s*(${escapedHeaders.join('|')})\\s*\\**\\s*:?[ \\t]*`, 'gi');
+  const headerRegex = new RegExp(`(?:^|\\n)[ \\t]*#{0,3}[ \\t]*\\**[ \\t]*(${escapedHeaders.join('|')})[ \\t]*\\**[ \\t]*:?[ \\t]*`, 'gi');
   const matches = [...rawText.matchAll(headerRegex)];
 
   if (matches.length === 0) {

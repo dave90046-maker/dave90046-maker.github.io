@@ -672,6 +672,10 @@ footer {
   outline: none;
   border-color: var(--accent);
 }
+.icp-form-actions {
+  display: flex;
+  gap: 0.75rem;
+}
 .icp-form-row .btn {
   border: none;
   font-family: inherit;
@@ -680,6 +684,31 @@ footer {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
+}
+.icp-export-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.1rem;
+  flex-shrink: 0;
+  background: transparent;
+  color: var(--text-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.icp-export-btn:hover:not(:disabled) {
+  border-color: var(--text-2);
+  color: var(--text);
+}
+.icp-export-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.icp-export-btn svg {
+  width: 18px;
+  height: 18px;
 }
 
 /* Loading state */
@@ -716,16 +745,17 @@ footer {
 
 /* Results */
 .icp-results {
-  flex-direction: column;
-  gap: 1.5rem;
-  max-width: 760px;
-}
-.icp-results:not([hidden]) { display: flex; }
-.icp-section {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 1.75rem;
+  padding: 2rem 2.25rem;
+  max-width: 760px;
+}
+.icp-results:not([hidden]) { display: block; }
+.icp-section-block + .icp-section-block {
+  margin-top: 1.75rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--border);
 }
 .icp-section-title {
   font-size: 0.75rem;
@@ -742,11 +772,13 @@ footer {
   margin-bottom: 0.9rem;
 }
 .icp-section-body p:last-child { margin-bottom: 0; }
+.icp-section-body strong { color: var(--text); font-weight: 700; }
 .icp-section-body ul {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
+  margin-bottom: 0.9rem;
 }
 .icp-section-body ul:last-child { margin-bottom: 0; }
 .icp-section-body li {
@@ -816,4 +848,7 @@ footer {
   .btn-ghost { margin-left: 0; }
   .icp-form-row { flex-direction: column; align-items: stretch; }
   .icp-form-row .btn { margin-left: 0; }
+  .icp-form-actions { align-items: stretch; }
+  .icp-form-actions .btn { flex: 1; }
+  .icp-results { padding: 1.5rem; }
 }

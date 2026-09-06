@@ -24,7 +24,8 @@ const ICP_SECTION_HEADERS = [
   'Buyer Persona',
   'Top Pain Points',
   'Outreach Angle',
-  'Marketing Channel Fit'
+  'Marketing Channel Fit',
+  'Competitive Landscape'
 ];
 
 /*

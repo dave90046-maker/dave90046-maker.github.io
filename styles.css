@@ -862,16 +862,43 @@ footer {
   color: var(--accent);
   margin-bottom: 1.1rem;
 }
-.journey-card-subject {
+.journey-card-block { margin-bottom: 1.1rem; }
+.journey-card-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-bottom: 0.45rem;
+}
+.journey-card-subject-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
   background: rgba(196, 84, 31, 0.1);
   border-left: 3px solid var(--accent);
   border-radius: 4px;
   padding: 0.7rem 0.9rem;
+}
+.journey-card-subject-text {
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--text);
   line-height: 1.4;
-  margin-bottom: 1.1rem;
+}
+.journey-card-char-count {
+  align-self: flex-end;
+  font-size: 0.7rem;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+.journey-card-headline {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.35;
+  margin-bottom: 0.9rem;
 }
 .journey-card-body {
   font-size: 0.9rem;
@@ -879,6 +906,18 @@ footer {
   line-height: 1.7;
   margin-bottom: 1.25rem;
   flex: 1;
+}
+.journey-card-cta-btn {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.6rem 1.25rem;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: default;
 }
 .journey-card-intent {
   font-size: 0.825rem;

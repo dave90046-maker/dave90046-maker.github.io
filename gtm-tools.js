@@ -275,14 +275,36 @@ const JOURNEY_API_URL = 'https://dave-gtm-api.vercel.app/api/journey';
 
 function renderJourneyResults(stages) {
   const resultsEl = document.getElementById('journey-results');
-  resultsEl.innerHTML = stages.map(stage => `
+  resultsEl.innerHTML = stages.map(stage => {
+    const charCount = typeof stage.subject_line_length === 'number'
+      ? stage.subject_line_length
+      : (stage.subject_line || '').length;
+
+    return `
     <div class="journey-card">
       <div class="journey-card-stage">${escapeHtml(stage.stage || '')}</div>
-      <div class="journey-card-subject">${escapeHtml(stage.subject_line || '')}</div>
+
+      <div class="journey-card-block">
+        <span class="journey-card-label">Subject Line</span>
+        <div class="journey-card-subject-row">
+          <span class="journey-card-subject-text">${escapeHtml(stage.subject_line || '')}</span>
+          <span class="journey-card-char-count">${charCount} characters</span>
+        </div>
+      </div>
+
+      <h4 class="journey-card-headline">${escapeHtml(stage.headline || '')}</h4>
+
       <p class="journey-card-body">${escapeHtml(stage.body_preview || '')}</p>
+
+      <div class="journey-card-block">
+        <span class="journey-card-label">CTA</span>
+        <button type="button" class="journey-card-cta-btn">${escapeHtml(stage.cta || '')}</button>
+      </div>
+
       <p class="journey-card-intent">${escapeHtml(stage.strategic_intent || '')}</p>
     </div>
-  `).join('');
+  `;
+  }).join('');
   resultsEl.hidden = false;
 }
 

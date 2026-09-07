@@ -33,6 +33,7 @@
         <div class="tab-list" role="tablist">
           <button type="button" class="tab-btn active" id="tab-icp-research" role="tab" aria-selected="true" aria-controls="panel-icp-research" data-tab="icp-research">ICP Research</button>
           <button type="button" class="tab-btn" id="tab-journey-builder" role="tab" aria-selected="false" aria-controls="panel-journey-builder" data-tab="journey-builder">Lifecycle Journey Builder</button>
+          <button type="button" class="tab-btn" id="tab-performance-analyzer" role="tab" aria-selected="false" aria-controls="panel-performance-analyzer" data-tab="performance-analyzer">Performance Analyzer</button>
         </div>
 
         <div class="tab-panels">
@@ -134,6 +135,68 @@
             <div class="journey-results" id="journey-results" hidden></div>
           </div>
 
+          <!-- Performance Analyzer -->
+          <div class="tab-panel" id="panel-performance-analyzer" role="tabpanel" aria-labelledby="tab-performance-analyzer" data-tab-panel="performance-analyzer">
+            <p class="tool-desc">Upload email or LinkedIn campaign data to see how well each campaign's hook (subject line or headline) grabbed attention versus how well the content that followed performed.</p>
+
+            <div class="perf-toggle" role="group" aria-label="Platform">
+              <button type="button" class="perf-toggle-btn active" id="perf-platform-email" data-platform="email" aria-pressed="true">Email</button>
+              <button type="button" class="perf-toggle-btn" id="perf-platform-linkedin" data-platform="linkedin" aria-pressed="false">LinkedIn</button>
+            </div>
+
+            <div class="perf-actions">
+              <button type="button" class="btn btn-accent" id="perf-load-sample">Load Sample Data</button>
+              <button type="button" class="btn btn-ghost" id="perf-download-sample">Download Sample CSV</button>
+              <label class="perf-upload-label" for="perf-file-input">
+                Upload CSV
+                <input type="file" id="perf-file-input" accept=".csv,text/csv" hidden />
+              </label>
+            </div>
+
+            <div class="icp-error" id="perf-upload-error" hidden></div>
+
+            <p class="perf-empty" id="perf-empty">Upload your own CSV or click "Load Sample Data" to see the hook vs. content comparison.</p>
+
+            <div class="perf-chart-section" id="perf-chart-section" hidden>
+
+              <div class="perf-chart-card">
+                <div class="perf-chart-header">
+                  <h3 class="perf-chart-title" id="perf-chart-title">Hook vs. Content Performance</h3>
+                  <button type="button" class="icp-export-btn" id="perf-export" disabled aria-label="Download performance analysis as RTF" title="Download performance analysis as RTF">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M12 3v12" />
+                      <path d="M7 10l5 5 5-5" />
+                      <path d="M5 21h14" />
+                    </svg>
+                  </button>
+                </div>
+                <div class="perf-chart-wrap">
+                  <canvas id="perf-chart"></canvas>
+                </div>
+                <div class="perf-quadrant-legend" id="perf-quadrant-legend"></div>
+              </div>
+
+              <div class="perf-table-card">
+                <div class="perf-table-wrap">
+                  <table class="perf-table" id="perf-table">
+                    <thead id="perf-table-head"></thead>
+                    <tbody id="perf-table-body"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="icp-status" id="perf-status" hidden>
+                <span class="spinner" aria-hidden="true"></span>
+                <span>Analyzing performance…</span>
+              </div>
+
+              <div class="icp-error" id="perf-analysis-error" hidden></div>
+
+              <div class="icp-results" id="perf-analysis-results" hidden></div>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -161,6 +224,8 @@
   </footer>
 
   <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
   <script src="gtm-tools.js"></script>
 </body>
 </html>

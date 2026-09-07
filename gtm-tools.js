@@ -269,3 +269,70 @@ if (icpForm) {
     downloadRtf(filename, buildBriefRtf(lastBrief, lastCompany));
   });
 }
+
+// Lifecycle Journey Builder
+const JOURNEY_API_URL = 'https://dave-gtm-api.vercel.app/api/journey';
+
+function renderJourneyResults(stages) {
+  const resultsEl = document.getElementById('journey-results');
+  resultsEl.innerHTML = stages.map(stage => `
+    <div class="journey-card">
+      <div class="journey-card-stage">${escapeHtml(stage.stage || '')}</div>
+      <div class="journey-card-subject">${escapeHtml(stage.subject_line || '')}</div>
+      <p class="journey-card-body">${escapeHtml(stage.body_preview || '')}</p>
+      <p class="journey-card-intent">${escapeHtml(stage.strategic_intent || '')}</p>
+    </div>
+  `).join('');
+  resultsEl.hidden = false;
+}
+
+const journeyForm = document.getElementById('journey-form');
+if (journeyForm) {
+  const submitBtn = document.getElementById('journey-submit');
+  const statusEl = document.getElementById('journey-status');
+  const errorEl = document.getElementById('journey-error');
+  const resultsEl = document.getElementById('journey-results');
+
+  journeyForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const product = document.getElementById('journey-product').value.trim();
+    const persona = document.getElementById('journey-persona').value.trim();
+    const companySize = document.getElementById('journey-company-size').value;
+    const painPoint = document.getElementById('journey-pain-point').value.trim();
+    const goal = document.getElementById('journey-goal').value;
+
+    if (!product || !persona || !companySize || !painPoint || !goal) return;
+
+    submitBtn.disabled = true;
+    statusEl.hidden = false;
+    errorEl.hidden = true;
+    resultsEl.hidden = true;
+    resultsEl.innerHTML = '';
+
+    try {
+      const response = await fetch(JOURNEY_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ product, persona, companySize, painPoint, goal })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (!data || !Array.isArray(data.stages)) {
+        throw new Error('Unexpected response format');
+      }
+
+      renderJourneyResults(data.stages);
+    } catch (err) {
+      errorEl.textContent = "Something went wrong building this journey. Please try again in a moment.";
+      errorEl.hidden = false;
+    } finally {
+      submitBtn.disabled = false;
+      statusEl.hidden = true;
+    }
+  });
+}

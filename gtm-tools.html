@@ -32,6 +32,7 @@
       <div class="tabs">
         <div class="tab-list" role="tablist">
           <button type="button" class="tab-btn active" id="tab-icp-research" role="tab" aria-selected="true" aria-controls="panel-icp-research" data-tab="icp-research">ICP Research</button>
+          <button type="button" class="tab-btn" id="tab-journey-builder" role="tab" aria-selected="false" aria-controls="panel-journey-builder" data-tab="journey-builder">Lifecycle Journey Builder</button>
         </div>
 
         <div class="tab-panels">
@@ -65,6 +66,63 @@
             <div class="icp-error" id="icp-error" hidden></div>
 
             <div class="icp-results" id="icp-results" hidden></div>
+          </div>
+
+          <!-- Lifecycle Journey Builder -->
+          <div class="tab-panel" id="panel-journey-builder" role="tabpanel" aria-labelledby="tab-journey-builder" data-tab-panel="journey-builder">
+            <p class="tool-desc">Describe your product, audience, and goal to generate a tailored 4-stage lifecycle email journey.</p>
+
+            <form class="journey-form" id="journey-form" novalidate>
+              <div class="journey-grid">
+                <div class="form-field">
+                  <label for="journey-product">Product / Service</label>
+                  <input type="text" id="journey-product" name="product" placeholder="e.g. Salesforce, AI-powered compliance platform" autocomplete="off" required />
+                </div>
+
+                <div class="form-field">
+                  <label for="journey-persona">Target Persona</label>
+                  <input type="text" id="journey-persona" name="persona" placeholder="e.g. VP of IT at mid-market financial services firms" autocomplete="off" required />
+                </div>
+
+                <div class="form-field">
+                  <label for="journey-company-size">Company Size</label>
+                  <select id="journey-company-size" name="companySize" required>
+                    <option value="" disabled selected>Select a company size</option>
+                    <option value="Startup (1-50)">Startup (1-50)</option>
+                    <option value="SMB (51-500)">SMB (51-500)</option>
+                    <option value="Mid-Market (501-2000)">Mid-Market (501-2000)</option>
+                    <option value="Enterprise (2000+)">Enterprise (2000+)</option>
+                  </select>
+                </div>
+
+                <div class="form-field">
+                  <label for="journey-pain-point">Primary Pain Point</label>
+                  <input type="text" id="journey-pain-point" name="painPoint" placeholder="e.g. managing compliance manually with spreadsheets" autocomplete="off" required />
+                </div>
+
+                <div class="form-field">
+                  <label for="journey-goal">Journey Goal</label>
+                  <select id="journey-goal" name="goal" required>
+                    <option value="" disabled selected>Select a goal</option>
+                    <option value="Acquire">Acquire</option>
+                    <option value="Nurture">Nurture</option>
+                    <option value="Retain">Retain</option>
+                    <option value="Win-Back">Win-Back</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-accent" id="journey-submit">Build Journey</button>
+            </form>
+
+            <div class="icp-status" id="journey-status" hidden>
+              <span class="spinner" aria-hidden="true"></span>
+              <span>Building journey…</span>
+            </div>
+
+            <div class="icp-error" id="journey-error" hidden></div>
+
+            <div class="journey-results" id="journey-results" hidden></div>
           </div>
 
         </div>

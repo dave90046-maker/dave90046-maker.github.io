@@ -594,7 +594,7 @@ footer {
 .gtm-page .section-lead { margin-bottom: 3.5rem; }
 
 /* Tabs */
-.tabs { max-width: 760px; }
+.tabs {}
 .tab-list {
   display: flex;
   flex-wrap: wrap;
@@ -795,6 +795,100 @@ footer {
   color: var(--accent);
 }
 
+/* Lifecycle Journey Builder form */
+.journey-form { margin-bottom: 2rem; }
+.journey-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 1.5rem;
+  max-width: 900px;
+  margin-bottom: 1.75rem;
+}
+.form-field { display: flex; flex-direction: column; }
+.form-field label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+.form-field input[type="text"],
+.form-field select {
+  background: var(--ph-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.85rem 1rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: var(--text);
+  transition: border-color 0.2s;
+}
+.form-field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23cccccc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  background-size: 16px;
+  padding-right: 2.5rem;
+}
+.form-field select:invalid { color: var(--ph-text); }
+.form-field input[type="text"]::placeholder { color: var(--ph-text); }
+.form-field input[type="text"]:focus,
+.form-field select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* Journey result cards */
+.journey-results {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+.journey-results:not([hidden]) { display: grid; }
+.journey-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.75rem;
+}
+.journey-card-stage {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.1rem;
+}
+.journey-card-subject {
+  background: rgba(196, 84, 31, 0.1);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.4;
+  margin-bottom: 1.1rem;
+}
+.journey-card-body {
+  font-size: 0.9rem;
+  color: var(--text-2);
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+  flex: 1;
+}
+.journey-card-intent {
+  font-size: 0.825rem;
+  color: var(--text-2);
+  font-style: italic;
+  opacity: 0.85;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .work-grid { grid-template-columns: 1fr; max-width: 480px; }
@@ -851,4 +945,5 @@ footer {
   .icp-form-actions { align-items: stretch; }
   .icp-form-actions .btn { flex: 1; }
   .icp-results { padding: 1.5rem; }
+  .journey-grid { grid-template-columns: 1fr; }
 }

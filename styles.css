@@ -909,7 +909,10 @@ footer {
   color: var(--text-2);
   line-height: 1.7;
   margin-bottom: 1.25rem;
-  flex: 1;
+}
+.journey-card-cta-block {
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--border);
 }
 .journey-card-cta-btn {
   display: inline-block;

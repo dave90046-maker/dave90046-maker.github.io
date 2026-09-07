@@ -320,7 +320,7 @@ function renderJourneyResults(stages) {
 
       <p class="journey-card-body">${escapeHtml(stage.body_preview || '')}</p>
 
-      <div class="journey-card-block">
+      <div class="journey-card-block journey-card-cta-block">
         <span class="journey-card-label">CTA</span>
         <button type="button" class="journey-card-cta-btn">${escapeHtml(stage.cta || '')}</button>
       </div>

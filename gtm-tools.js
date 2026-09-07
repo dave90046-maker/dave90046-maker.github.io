@@ -189,6 +189,30 @@ function buildBriefRtf(structured, company) {
   return lines.join('\n');
 }
 
+function buildJourneyRtf(stages, product) {
+  const lines = [
+    '{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1033{\\fonttbl{\\f0\\fswiss\\fcharset0 Helvetica;}}',
+    '\\viewkind4\\uc1\\f0\\fs24',
+    `\\pard\\sa200\\b\\fs32 ${escapeRtf('Lifecycle Journey: ' + product)}\\b0\\fs24\\par`
+  ];
+
+  stages.forEach(stage => {
+    const charCount = typeof stage.subject_line_length === 'number'
+      ? stage.subject_line_length
+      : (stage.subject_line || '').length;
+
+    lines.push(`\\pard\\sa120\\sb200\\b\\fs28 ${escapeRtf(stage.stage || '')}\\b0\\fs24\\par`);
+    lines.push(`\\pard\\sa60 {\\b Subject Line} (${charCount} characters): ${escapeRtf(stage.subject_line || '')}\\par`);
+    lines.push(`\\pard\\sa60 {\\b Headline}: ${escapeRtf(stage.headline || '')}\\par`);
+    lines.push(`\\pard\\sa120 {\\b Body Preview}: ${escapeRtf(stage.body_preview || '')}\\par`);
+    lines.push(`\\pard\\sa60 {\\b CTA}: ${escapeRtf(stage.cta || '')}\\par`);
+    lines.push(`\\pard\\sa120 {\\b Strategic Intent}: ${escapeRtf(stage.strategic_intent || '')}\\par`);
+  });
+
+  lines.push('}');
+  return lines.join('\n');
+}
+
 function sanitizeFilenameSegment(name) {
   return name.trim().replace(/[\\/:*?"<>|]/g, '').replace(/\s+/g, '-');
 }
@@ -311,9 +335,13 @@ function renderJourneyResults(stages) {
 const journeyForm = document.getElementById('journey-form');
 if (journeyForm) {
   const submitBtn = document.getElementById('journey-submit');
+  const exportBtn = document.getElementById('journey-export');
   const statusEl = document.getElementById('journey-status');
   const errorEl = document.getElementById('journey-error');
   const resultsEl = document.getElementById('journey-results');
+
+  let lastStages = null;
+  let lastProduct = '';
 
   journeyForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -327,6 +355,7 @@ if (journeyForm) {
     if (!product || !persona || !companySize || !painPoint || !goal) return;
 
     submitBtn.disabled = true;
+    exportBtn.disabled = true;
     statusEl.hidden = false;
     errorEl.hidden = true;
     resultsEl.hidden = true;
@@ -348,13 +377,24 @@ if (journeyForm) {
         throw new Error('Unexpected response format');
       }
 
+      lastStages = data.stages;
+      lastProduct = product;
+
       renderJourneyResults(data.stages);
+      exportBtn.disabled = false;
     } catch (err) {
+      lastStages = null;
       errorEl.textContent = "Something went wrong building this journey. Please try again in a moment.";
       errorEl.hidden = false;
     } finally {
       submitBtn.disabled = false;
       statusEl.hidden = true;
     }
+  });
+
+  exportBtn.addEventListener('click', () => {
+    if (!lastStages) return;
+    const filename = `${sanitizeFilenameSegment(lastProduct)}-lifecycle-journey.rtf`;
+    downloadRtf(filename, buildJourneyRtf(lastStages, lastProduct));
   });
 }

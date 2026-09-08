@@ -532,6 +532,34 @@ function pctToFixed0(v) {
   return Math.round(v * 100) + '%';
 }
 
+const PERF_SCORE_COLOR_LOW = [214, 168, 140];
+const PERF_SCORE_COLOR_HIGH = [196, 84, 31];
+const PERF_SCORE_RADIUS_MIN = 5;
+const PERF_SCORE_RADIUS_MAX = 10;
+
+function computePerfCompositeScores(campaigns, meanX, meanY) {
+  const devX = campaigns.map(c => c.x - meanX);
+  const devY = campaigns.map(c => c.y - meanY);
+  const maxAbsDevX = Math.max(...devX.map(Math.abs)) || 1;
+  const maxAbsDevY = Math.max(...devY.map(Math.abs)) || 1;
+
+  const rawScores = campaigns.map((c, i) => devX[i] / maxAbsDevX + devY[i] / maxAbsDevY);
+  const rawMin = Math.min(...rawScores);
+  const rawMax = Math.max(...rawScores);
+  const rawRange = rawMax - rawMin;
+
+  return rawScores.map(raw => (rawRange > 0 ? (raw - rawMin) / rawRange : 0.5));
+}
+
+function perfScoreToColor(score) {
+  const rgb = PERF_SCORE_COLOR_LOW.map((low, i) => Math.round(low + (PERF_SCORE_COLOR_HIGH[i] - low) * score));
+  return `rgb(${rgb.join(', ')})`;
+}
+
+function perfScoreToRadius(score) {
+  return PERF_SCORE_RADIUS_MIN + (PERF_SCORE_RADIUS_MAX - PERF_SCORE_RADIUS_MIN) * score;
+}
+
 function validateAndBuildCampaigns(rows, fields, config) {
   const missing = config.requiredColumns.filter(c => !fields.includes(c));
   if (missing.length > 0) {
@@ -711,6 +739,11 @@ function renderPerfChart(config) {
     x: c.x, y: c.y, name: c.name, hook: c.hook
   }));
 
+  const scores = computePerfCompositeScores(perfState.campaigns, perfState.meanX, perfState.meanY);
+  const colors = scores.map(perfScoreToColor);
+  const radii = scores.map(perfScoreToRadius);
+  const hoverRadii = radii.map(r => r + 2);
+
   document.getElementById('perf-chart-title').textContent = `${config.xLabel} vs. ${config.yLabel}`;
 
   perfChart = new Chart(canvas.getContext('2d'), {
@@ -719,11 +752,11 @@ function renderPerfChart(config) {
       datasets: [{
         label: config.label,
         data: points,
-        backgroundColor: 'rgba(196, 84, 31, 0.85)',
+        backgroundColor: colors,
         borderColor: '#211e1b',
         borderWidth: 1,
-        radius: 6,
-        hoverRadius: 8,
+        radius: radii,
+        hoverRadius: hoverRadii,
         hoverBorderColor: '#fff'
       }]
     },

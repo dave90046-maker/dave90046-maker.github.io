@@ -1051,6 +1051,12 @@ footer {
   height: 420px;
   margin-bottom: 1.75rem;
 }
+.perf-encoding-legend {
+  font-size: 0.8rem;
+  color: var(--text-2);
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
 .perf-quadrant-legend {
   display: grid;
   grid-template-columns: 1fr 1fr;

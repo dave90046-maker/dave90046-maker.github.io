@@ -191,6 +191,13 @@ section { padding: 6rem 0; }
   border-color: var(--text-2);
   color: var(--text);
 }
+.btn:focus {
+  outline: none;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--accent-h);
+  outline-offset: 2px;
+}
 
 /* ── Section Labels ── */
 .eyebrow {
@@ -706,6 +713,13 @@ footer {
   opacity: 0.4;
   cursor: not-allowed;
 }
+.icp-export-btn:focus {
+  outline: none;
+}
+.icp-export-btn:focus-visible {
+  outline: 2px solid var(--accent-h);
+  outline-offset: 2px;
+}
 .icp-export-btn svg {
   width: 18px;
   height: 18px;
@@ -962,6 +976,13 @@ footer {
 .perf-toggle-btn.active {
   background: var(--accent);
   color: #fff;
+}
+.perf-toggle-btn:focus {
+  outline: none;
+}
+.perf-toggle-btn:focus-visible {
+  outline: 2px solid var(--accent-h);
+  outline-offset: 2px;
 }
 
 .perf-actions {

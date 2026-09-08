@@ -17,15 +17,14 @@ tabButtons.forEach(btn => {
   });
 });
 
-// ICP Research
+// Competitive Intelligence
 const ICP_API_URL = 'https://dave-gtm-api.vercel.app/api/research';
 const ICP_SECTION_HEADERS = [
-  'Company Overview',
+  'Recent Activity',
+  'Strategic Focus',
   'Buyer Persona',
-  'Top Pain Points',
-  'Outreach Angle',
-  'Marketing Channel Fit',
-  'Competitive Landscape'
+  'Competitive Positioning',
+  'Engagement Angle'
 ];
 
 /*

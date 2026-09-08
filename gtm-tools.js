@@ -532,10 +532,10 @@ function pctToFixed0(v) {
   return Math.round(v * 100) + '%';
 }
 
-const PERF_SCORE_COLOR_LOW = [214, 168, 140];
+const PERF_SCORE_COLOR_LOW = [237, 208, 184];
 const PERF_SCORE_COLOR_HIGH = [196, 84, 31];
-const PERF_SCORE_RADIUS_MIN = 5;
-const PERF_SCORE_RADIUS_MAX = 10;
+const PERF_SCORE_RADIUS_MIN = 4;
+const PERF_SCORE_RADIUS_MAX = 15;
 
 function computePerfCompositeScores(campaigns, meanX, meanY) {
   const devX = campaigns.map(c => c.x - meanX);
@@ -557,7 +557,7 @@ function perfScoreToColor(score) {
 }
 
 function perfScoreToRadius(score) {
-  return PERF_SCORE_RADIUS_MIN + (PERF_SCORE_RADIUS_MAX - PERF_SCORE_RADIUS_MIN) * score;
+  return PERF_SCORE_RADIUS_MIN + (PERF_SCORE_RADIUS_MAX - PERF_SCORE_RADIUS_MIN) * (score * score);
 }
 
 function validateAndBuildCampaigns(rows, fields, config) {

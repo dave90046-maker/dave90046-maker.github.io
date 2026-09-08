@@ -172,6 +172,9 @@ section { padding: 6rem 0; }
   letter-spacing: 0.01em;
   cursor: pointer;
   transition: background 0.2s, transform 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
 }
 .btn-accent {
   background: var(--accent);
@@ -703,6 +706,8 @@ footer {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
   transition: border-color 0.2s, color 0.2s;
 }
 .icp-export-btn:hover:not(:disabled) {
@@ -960,6 +965,7 @@ footer {
   margin-bottom: 1.5rem;
 }
 .perf-toggle-btn {
+  -webkit-appearance: none;
   appearance: none;
   background: none;
   border: none;

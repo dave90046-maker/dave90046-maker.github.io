@@ -20,6 +20,7 @@ tabButtons.forEach(btn => {
 // Company Intelligence
 const ICP_API_URL = 'https://dave-gtm-api.vercel.app/api/research';
 const ICP_SECTION_HEADERS = [
+  'Company Bio',
   'Recent Activity',
   'Strategic Focus',
   'Buyer Persona',
@@ -82,6 +83,8 @@ function parseSectionBlocks(contentText) {
   };
 
   lines.forEach(line => {
+    if (/^(-{3,}|_{3,}|\*{3,})$/.test(line)) return;
+
     const bulletText = matchBulletLine(line);
     if (bulletText !== null) {
       if (!currentList) {

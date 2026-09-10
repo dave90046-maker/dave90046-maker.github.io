@@ -17,14 +17,14 @@ tabButtons.forEach(btn => {
   });
 });
 
-// Competitive Intelligence
+// Company Intelligence
 const ICP_API_URL = 'https://dave-gtm-api.vercel.app/api/research';
 const ICP_SECTION_HEADERS = [
   'Recent Activity',
   'Strategic Focus',
   'Buyer Persona',
   'Competitive Positioning',
-  'Engagement Angle'
+  'Key Takeaways'
 ];
 
 /*

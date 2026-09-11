@@ -1094,6 +1094,17 @@ footer {
   color: var(--text-2);
   line-height: 1.6;
 }
+#perf-quadrant-legend .perf-quadrant-item-title {
+  color: #ffffff;
+}
+.perf-quadrant-swatch {
+  display: inline-block;
+  width: 0.65em;
+  height: 0.65em;
+  margin-right: 0.5em;
+  border-radius: 2px;
+  vertical-align: middle;
+}
 
 .perf-table-card {
   background: var(--bg-card);

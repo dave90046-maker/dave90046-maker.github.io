@@ -534,8 +534,13 @@ function pctToFixed0(v) {
   return Math.round(v * 100) + '%';
 }
 
-const PERF_SCORE_COLOR_LOW = [237, 208, 184];
-const PERF_SCORE_COLOR_HIGH = [196, 84, 31];
+const PERF_DOT_COLOR = '#c4541f';
+const PERF_QUADRANT_COLORS = {
+  hh: '#c4541f',
+  hl: '#D9A831',
+  lh: '#4FB3A9',
+  ll: '#B454B0'
+};
 const PERF_SCORE_RADIUS_MIN = 4;
 const PERF_SCORE_RADIUS_MAX = 15;
 
@@ -551,11 +556,6 @@ function computePerfCompositeScores(campaigns, meanX, meanY) {
   const rawRange = rawMax - rawMin;
 
   return rawScores.map(raw => (rawRange > 0 ? (raw - rawMin) / rawRange : 0.5));
-}
-
-function perfScoreToColor(score) {
-  const rgb = PERF_SCORE_COLOR_LOW.map((low, i) => Math.round(low + (PERF_SCORE_COLOR_HIGH[i] - low) * score));
-  return `rgb(${rgb.join(', ')})`;
 }
 
 function perfScoreToRadius(score) {
@@ -680,12 +680,30 @@ function renderPerfTableBody(config) {
 function renderPerfQuadrantLegend(config) {
   const el = document.getElementById('perf-quadrant-legend');
   const q = config.quadrants;
-  el.innerHTML = [q.hh, q.hl, q.lh, q.ll].map(item => `
+  el.innerHTML = ['hh', 'hl', 'lh', 'll'].map(key => `
     <div class="perf-quadrant-item">
-      <div class="perf-quadrant-item-title">${escapeHtml(item.title)}</div>
-      <div class="perf-quadrant-item-desc">${escapeHtml(item.desc)}</div>
+      <div class="perf-quadrant-item-title"><span class="perf-quadrant-swatch" style="background:${PERF_QUADRANT_COLORS[key]}"></span>${escapeHtml(q[key].title)}</div>
+      <div class="perf-quadrant-item-desc">${escapeHtml(q[key].desc)}</div>
     </div>
   `).join('');
+}
+
+function drawPerfQuadrantLabel(ctx, text, color, anchorX, y, anchorSide, baseline) {
+  const swatchSize = 8;
+  const gap = 5;
+  ctx.font = '600 11px Inter, sans-serif';
+  const textWidth = ctx.measureText(text).width;
+  const groupWidth = swatchSize + gap + textWidth;
+  const groupLeft = anchorSide === 'right' ? anchorX - groupWidth : anchorX;
+  const swatchY = baseline === 'top' ? y : y - swatchSize;
+
+  ctx.fillStyle = color;
+  ctx.fillRect(groupLeft, swatchY, swatchSize, swatchSize);
+
+  ctx.fillStyle = 'rgba(204, 204, 204, 0.6)';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = baseline;
+  ctx.fillText(text, groupLeft + swatchSize + gap, y);
 }
 
 const perfQuadrantPlugin = {
@@ -712,19 +730,11 @@ const perfQuadrantPlugin = {
     ctx.restore();
 
     ctx.save();
-    ctx.font = '600 11px Inter, sans-serif';
-    ctx.fillStyle = 'rgba(204, 204, 204, 0.5)';
     const pad = 10;
-    ctx.textBaseline = 'top';
-    ctx.textAlign = 'right';
-    ctx.fillText(opts.labels.hh, chartArea.right - pad, chartArea.top + pad);
-    ctx.textAlign = 'left';
-    ctx.fillText(opts.labels.lh, chartArea.left + pad, chartArea.top + pad);
-    ctx.textBaseline = 'bottom';
-    ctx.textAlign = 'right';
-    ctx.fillText(opts.labels.hl, chartArea.right - pad, chartArea.bottom - pad);
-    ctx.textAlign = 'left';
-    ctx.fillText(opts.labels.ll, chartArea.left + pad, chartArea.bottom - pad);
+    drawPerfQuadrantLabel(ctx, opts.labels.hh, PERF_QUADRANT_COLORS.hh, chartArea.right - pad, chartArea.top + pad, 'right', 'top');
+    drawPerfQuadrantLabel(ctx, opts.labels.lh, PERF_QUADRANT_COLORS.lh, chartArea.left + pad, chartArea.top + pad, 'left', 'top');
+    drawPerfQuadrantLabel(ctx, opts.labels.hl, PERF_QUADRANT_COLORS.hl, chartArea.right - pad, chartArea.bottom - pad, 'right', 'bottom');
+    drawPerfQuadrantLabel(ctx, opts.labels.ll, PERF_QUADRANT_COLORS.ll, chartArea.left + pad, chartArea.bottom - pad, 'left', 'bottom');
     ctx.restore();
   }
 };
@@ -742,7 +752,6 @@ function renderPerfChart(config) {
   }));
 
   const scores = computePerfCompositeScores(perfState.campaigns, perfState.meanX, perfState.meanY);
-  const colors = scores.map(perfScoreToColor);
   const radii = scores.map(perfScoreToRadius);
   const hoverRadii = radii.map(r => r + 2);
 
@@ -754,7 +763,7 @@ function renderPerfChart(config) {
       datasets: [{
         label: config.label,
         data: points,
-        backgroundColor: colors,
+        backgroundColor: PERF_DOT_COLOR,
         borderColor: '#211e1b',
         borderWidth: 1,
         radius: radii,

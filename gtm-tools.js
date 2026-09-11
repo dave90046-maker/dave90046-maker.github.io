@@ -892,17 +892,16 @@ async function runPerfAnalysis(config) {
 function renderPerfAnalysis(analysis) {
   const resultsEl = document.getElementById('perf-analysis-results');
   resultsEl.innerHTML = `
-    <div class="icp-section-block">
-      <h3 class="icp-section-title">Summary</h3>
-      <div class="icp-section-body"><p>${escapeHtml(analysis.summary)}</p></div>
-    </div>
-    <div class="icp-section-block">
-      <h3 class="icp-section-title">Best-Performing Campaign</h3>
-      <div class="icp-section-body"><p><strong>${escapeHtml(analysis.best.name)}</strong> — ${escapeHtml(analysis.best.explanation || '')}</p></div>
-    </div>
-    <div class="icp-section-block">
-      <h3 class="icp-section-title">Worst-Performing Campaign</h3>
-      <div class="icp-section-body"><p><strong>${escapeHtml(analysis.worst.name)}</strong> — ${escapeHtml(analysis.worst.explanation || '')}</p></div>
+    <p class="perf-insights-summary">${escapeHtml(analysis.summary)}</p>
+    <div class="perf-quadrant-legend">
+      <div class="perf-quadrant-item">
+        <div class="perf-quadrant-item-title">Best Performing</div>
+        <div class="perf-quadrant-item-desc"><strong>${escapeHtml(analysis.best.name)}</strong> — ${escapeHtml(analysis.best.explanation || '')}</div>
+      </div>
+      <div class="perf-quadrant-item">
+        <div class="perf-quadrant-item-title">Worst Performing</div>
+        <div class="perf-quadrant-item-desc"><strong>${escapeHtml(analysis.worst.name)}</strong> — ${escapeHtml(analysis.worst.explanation || '')}</div>
+      </div>
     </div>
   `;
   resultsEl.hidden = false;
@@ -934,10 +933,10 @@ function buildPerfRtf(config) {
     lines.push(`\\pard\\sa120\\sb200\\b\\fs28 Summary\\b0\\fs24\\par`);
     lines.push(`\\pard\\sa200 ${escapeRtf(perfLastAnalysis.summary)}\\par`);
 
-    lines.push(`\\pard\\sa120\\sb200\\b\\fs28 Best-Performing Campaign\\b0\\fs24\\par`);
+    lines.push(`\\pard\\sa120\\sb200\\b\\fs28 Best Performing\\b0\\fs24\\par`);
     lines.push(`\\pard\\sa200 {\\b ${escapeRtf(perfLastAnalysis.best.name)}} - ${escapeRtf(perfLastAnalysis.best.explanation || '')}\\par`);
 
-    lines.push(`\\pard\\sa120\\sb200\\b\\fs28 Worst-Performing Campaign\\b0\\fs24\\par`);
+    lines.push(`\\pard\\sa120\\sb200\\b\\fs28 Worst Performing\\b0\\fs24\\par`);
     lines.push(`\\pard\\sa200 {\\b ${escapeRtf(perfLastAnalysis.worst.name)}} - ${escapeRtf(perfLastAnalysis.worst.explanation || '')}\\par`);
   }
 

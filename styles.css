@@ -1057,6 +1057,17 @@ footer {
   text-align: center;
   margin-bottom: 1.25rem;
 }
+.perf-insights-title {
+  margin-bottom: 1.5rem;
+}
+
+.perf-insights-summary {
+  font-size: 0.95rem;
+  color: var(--text-2);
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+}
+
 .perf-quadrant-legend {
   display: grid;
   grid-template-columns: 1fr 1fr;

@@ -25,7 +25,9 @@ const ICP_SECTION_HEADERS = [
   'Strategic Focus',
   'Buyer Persona',
   'Competitive Positioning',
-  'Key Takeaways'
+  'Key Takeaways',
+  'What Likely Happened',
+  'Recommended Next Steps'
 ];
 
 /*
@@ -116,6 +118,11 @@ function parseBriefStructured(rawText) {
     const contentEnd = i + 1 < matches.length ? matches[i + 1].index : rawText.length;
     return { header: headerName, blocks: parseSectionBlocks(rawText.slice(contentStart, contentEnd).trim()) };
   });
+
+  const leadingText = rawText.slice(0, matches[0].index).trim();
+  if (leadingText.length > 0) {
+    sections.unshift({ header: null, blocks: parseSectionBlocks(leadingText) });
+  }
 
   return { sections };
 }

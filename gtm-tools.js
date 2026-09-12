@@ -534,7 +534,6 @@ function pctToFixed0(v) {
   return Math.round(v * 100) + '%';
 }
 
-const PERF_DOT_COLOR = '#c4541f';
 const PERF_QUADRANT_COLORS = {
   hh: '#c4541f',
   hl: '#D9A831',
@@ -560,6 +559,15 @@ function computePerfCompositeScores(campaigns, meanX, meanY) {
 
 function perfScoreToRadius(score) {
   return PERF_SCORE_RADIUS_MIN + (PERF_SCORE_RADIUS_MAX - PERF_SCORE_RADIUS_MIN) * (score * score);
+}
+
+function perfQuadrantKeyForPoint(x, y, meanX, meanY) {
+  const highX = x >= meanX;
+  const highY = y >= meanY;
+  if (highX && highY) return 'hh';
+  if (highX && !highY) return 'hl';
+  if (!highX && highY) return 'lh';
+  return 'll';
 }
 
 function validateAndBuildCampaigns(rows, fields, config) {
@@ -754,6 +762,7 @@ function renderPerfChart(config) {
   const scores = computePerfCompositeScores(perfState.campaigns, perfState.meanX, perfState.meanY);
   const radii = scores.map(perfScoreToRadius);
   const hoverRadii = radii.map(r => r + 2);
+  const colors = perfState.campaigns.map(c => PERF_QUADRANT_COLORS[perfQuadrantKeyForPoint(c.x, c.y, perfState.meanX, perfState.meanY)]);
 
   document.getElementById('perf-chart-title').textContent = `${config.xLabel} vs. ${config.yLabel}`;
 
@@ -763,7 +772,7 @@ function renderPerfChart(config) {
       datasets: [{
         label: config.label,
         data: points,
-        backgroundColor: PERF_DOT_COLOR,
+        backgroundColor: colors,
         borderColor: '#211e1b',
         borderWidth: 1,
         radius: radii,

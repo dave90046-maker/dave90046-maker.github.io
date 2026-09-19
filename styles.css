@@ -134,6 +134,18 @@ section { padding: 6rem 0; }
   margin: 0 auto;
   padding: 0 2rem;
   padding-top: 5rem;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+.hero-photo {
+  flex-shrink: 0;
+  width: 11rem;
+  height: 11rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 .hero-eyebrow {
   font-size: 0.8rem;
@@ -1203,7 +1215,8 @@ footer {
   .site-nav { padding: 1.25rem 1.5rem; }
   section { padding: 4rem 0; }
   .container { padding: 0 1.25rem; }
-  .hero-content { padding: 0 1.25rem; padding-top: 1.5rem; }
+  .hero-content { padding: 0 1.25rem; padding-top: 1.5rem; flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+  .hero-photo { width: 7rem; height: 7rem; }
   .cs-page { padding-top: 6rem; }
   .cs-nav { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
   .cs-nav-link.next { align-items: flex-start; }

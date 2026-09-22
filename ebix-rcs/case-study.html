@@ -1,0 +1,838 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Construction Compliance Case Study | Ebix RCS</title>
+<meta name="description" content="How a national construction firm used trade-aware oversight in Ebix RCS to eliminate hidden insurance exclusions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ── TOKENS ─────────────────────────────────────────────────── */
+:root {
+  --navy-deep:   #0D1628;
+  --navy-dark:   #111D35;
+  --navy-mid:    #1C2B4A;
+  --navy-card:   #1A2844;
+  --orange:      #E8650A;
+  --orange-lt:   #F07830;
+  --orange-dim:  rgba(232,101,10,0.15);
+  --white:       #FFFFFF;
+  --text-pri:    #E8EDF5;
+  --text-sec:    #B0BAD0;
+  --text-dim:    #8A96AA;
+  --rule:        rgba(255,255,255,0.08);
+  --rule-orange: rgba(232,101,10,0.35);
+
+  --font-disp:   'Bebas Neue', 'Arial Narrow', Arial, sans-serif;
+  --font-body:   'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:   'DM Mono', 'Courier New', monospace;
+}
+
+/* ── RESET / BASE ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--navy-dark);
+  color: var(--text-pri);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── SITE HEADER ────────────────────────────────────────────── */
+.site-header {
+  background: var(--navy-deep);
+  border-bottom: 1px solid var(--rule);
+  padding: 14px 0;
+}
+.site-header .inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.header-brand {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--orange);
+  text-transform: uppercase;
+}
+.header-sep {
+  width: 1px;
+  height: 16px;
+  background: var(--rule);
+  flex-shrink: 0;
+}
+.header-product {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--text-sec);
+  text-transform: uppercase;
+}
+.header-type {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border: 1px solid var(--text-dim);
+  padding: 3px 9px;
+  border-radius: 2px;
+}
+
+/* ── HERO ───────────────────────────────────────────────────── */
+.hero {
+  background: var(--navy-dark);
+  padding: 64px 32px 60px;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ghosted hexagonal grid texture */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      60deg,
+      transparent,
+      transparent 28px,
+      rgba(255,255,255,0.025) 28px,
+      rgba(255,255,255,0.025) 29px
+    ),
+    repeating-linear-gradient(
+      -60deg,
+      transparent,
+      transparent 28px,
+      rgba(255,255,255,0.025) 28px,
+      rgba(255,255,255,0.025) 29px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      rgba(255,255,255,0.02) 28px,
+      rgba(255,255,255,0.02) 29px
+    );
+  pointer-events: none;
+}
+
+/* Orange accent bar — left edge */
+.hero::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--orange) 0%, transparent 100%);
+}
+
+.hero .inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.eyebrow-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 2px;
+}
+.eyebrow-tag.orange {
+  background: var(--orange);
+  color: var(--white);
+}
+.eyebrow-tag.outline {
+  border: 1px solid var(--text-dim);
+  color: var(--text-sec);
+}
+
+.hero h1 {
+  font-family: var(--font-body);
+  font-size: clamp(28px, 4.5vw, 48px);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--white);
+  max-width: 760px;
+  margin-bottom: 20px;
+  text-wrap: balance;
+}
+.hero h1 .accent { color: var(--orange); }
+
+.hero-sub {
+  font-size: 16px;
+  color: var(--text-sec);
+  max-width: 560px;
+  line-height: 1.7;
+}
+
+/* ── METRICS BAR ────────────────────────────────────────────── */
+.metrics-bar {
+  background: var(--navy-deep);
+  border-bottom: 3px solid var(--orange);
+  padding: 0;
+}
+.metrics-bar .inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.metric-cell {
+  padding: 32px 36px;
+  border-right: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.metric-cell:last-child { border-right: none; }
+
+.metric-num {
+  font-family: var(--font-disp);
+  font-size: clamp(44px, 6vw, 72px);
+  line-height: 1;
+  color: var(--orange);
+  letter-spacing: 0.01em;
+}
+.metric-num sup {
+  font-size: 0.45em;
+  vertical-align: super;
+  color: var(--orange-lt);
+}
+.metric-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-sec);
+}
+.metric-sub {
+  font-size: 12px;
+  color: var(--text-sec);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+/* ── BODY LAYOUT ────────────────────────────────────────────── */
+.body-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 56px 32px 80px;
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 56px;
+  align-items: start;
+}
+
+/* ── MAIN CONTENT ───────────────────────────────────────────── */
+.section {
+  margin-bottom: 56px;
+}
+.section:last-child { margin-bottom: 0; }
+
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 12px;
+}
+
+.section h2 {
+  font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.25;
+  margin-bottom: 8px;
+  text-wrap: balance;
+}
+
+.section-rule {
+  width: 32px;
+  height: 2px;
+  background: var(--orange);
+  margin-bottom: 24px;
+}
+
+.section p {
+  font-size: 15px;
+  line-height: 1.78;
+  color: var(--text-pri);
+  margin-bottom: 16px;
+}
+.section p:last-child { margin-bottom: 0; }
+
+/* ── PULL QUOTE / CALLOUT ───────────────────────────────────── */
+.callout {
+  background: var(--navy-mid);
+  border-left: 3px solid var(--orange);
+  padding: 22px 26px;
+  margin: 28px 0;
+  border-radius: 0 4px 4px 0;
+}
+.callout p {
+  font-size: 14.5px !important;
+  line-height: 1.7 !important;
+  color: var(--text-pri) !important;
+  margin: 0 !important;
+}
+.callout strong { color: var(--orange); font-weight: 600; }
+
+/* ── SOLUTION CARDS ─────────────────────────────────────────── */
+.solution-grid {
+  display: grid;
+  gap: 10px;
+  margin-top: 24px;
+}
+.sol-card {
+  background: var(--navy-card);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 18px 20px;
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 14px;
+  align-items: start;
+  transition: border-color 0.15s;
+}
+.sol-card:hover { border-color: var(--rule-orange); }
+
+.sol-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--orange-dim);
+  border: 1px solid var(--rule-orange);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.sol-icon svg {
+  width: 15px;
+  height: 15px;
+  stroke: var(--orange);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.sol-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.sol-desc {
+  font-size: 13.5px;
+  color: var(--text-pri);
+  line-height: 1.6;
+}
+
+/* ── IMPACT SECTION ─────────────────────────────────────────── */
+.impact-hero {
+  background: var(--navy-mid);
+  border: 1px solid var(--rule-orange);
+  border-radius: 6px;
+  padding: 28px 32px;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+.impact-hero .big-num {
+  font-family: var(--font-disp);
+  font-size: 80px;
+  line-height: 1;
+  color: var(--orange);
+  flex-shrink: 0;
+}
+.impact-hero .big-num sup {
+  font-size: 0.4em;
+  vertical-align: super;
+}
+.impact-hero-content {}
+.impact-hero-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 8px;
+}
+.impact-hero-desc {
+  font-size: 14.5px;
+  color: var(--text-pri);
+  line-height: 1.65;
+}
+
+.impact-sub-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+.impact-sub {
+  background: var(--navy-card);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 18px 20px;
+}
+.impact-sub .i-num {
+  font-family: var(--font-disp);
+  font-size: 36px;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.impact-sub .i-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 8px;
+}
+.impact-sub .i-desc {
+  font-size: 12.5px;
+  color: var(--text-sec);
+  line-height: 1.55;
+}
+
+/* ── CLOSING NOTE ───────────────────────────────────────────── */
+.closing-note {
+  background: var(--navy-deep);
+  border: 1px solid var(--rule);
+  border-top: 2px solid var(--orange);
+  border-radius: 0 0 6px 6px;
+  padding: 24px 28px;
+  margin-top: 16px;
+}
+.closing-note p {
+  font-size: 14px !important;
+  line-height: 1.72 !important;
+  color: var(--text-pri) !important;
+  margin: 0 !important;
+}
+
+/* ── SIDEBAR ────────────────────────────────────────────────── */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 24px;
+}
+
+.sb-card {
+  background: var(--navy-card);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.sb-head {
+  background: var(--navy-deep);
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--rule);
+}
+.sb-head h3 {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+.sb-body {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.sb-row {
+  padding: 11px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.sb-row:last-child { border-bottom: none; }
+.sb-row-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-sec);
+  margin-bottom: 3px;
+}
+.sb-row-val {
+  font-size: 13px;
+  color: var(--text-pri);
+  line-height: 1.45;
+}
+
+.tag-wrap {
+  padding: 14px 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--text-sec);
+  background: var(--navy-mid);
+  border: 1px solid var(--rule);
+  padding: 4px 9px;
+  border-radius: 3px;
+}
+
+.sb-insight {
+  background: var(--navy-card);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--orange);
+  border-radius: 0 6px 6px 0;
+  padding: 16px 18px;
+}
+.sb-insight p {
+  font-size: 13px;
+  color: var(--text-pri);
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+.sb-insight p:last-child { margin-bottom: 0; }
+.sb-insight strong { color: var(--text-pri); font-weight: 600; }
+
+/* ── FOOTER ─────────────────────────────────────────────────── */
+.page-footer {
+  background: var(--navy-deep);
+  border-top: 1px solid var(--rule);
+  padding: 28px 32px;
+}
+.page-footer .inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.footer-brand {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.footer-note {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.footer-note a {
+  color: var(--orange);
+  text-decoration: none;
+}
+.footer-note a:hover { text-decoration: underline; }
+
+/* ── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .body-wrap {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 40px 20px 60px;
+  }
+  .sidebar { position: static; }
+  .impact-sub-grid { grid-template-columns: 1fr 1fr; }
+  .metrics-bar .inner { grid-template-columns: 1fr; }
+  .metric-cell {
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+    padding: 24px 24px;
+  }
+  .metric-cell:last-child { border-bottom: none; }
+}
+@media (max-width: 540px) {
+  .hero { padding: 44px 20px 40px; }
+  .site-header .inner { padding: 0 20px; }
+  .impact-hero { flex-direction: column; gap: 12px; }
+  .impact-hero .big-num { font-size: 60px; }
+  .impact-sub-grid { grid-template-columns: 1fr; }
+  .page-footer .inner { flex-direction: column; align-items: flex-start; }
+}
+
+/* ── MOTION ─────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .sol-card, .impact-sub, .sb-card { transition: border-color 0.18s ease; }
+}
+
+/* ── PAGE CARD (sits on site's dark background) ─────────────── */
+html { background: #2a2622; }
+body {
+  background: #2a2622;
+  padding: 48px 24px;
+}
+.cs-card {
+  max-width: 1140px;
+  margin: 0 auto;
+  background: var(--navy-dark);
+  border-radius: 14px;
+  overflow: clip;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.25), 0 24px 60px -12px rgba(0,0,0,0.55);
+}
+@media (max-width: 540px) {
+  body { padding: 16px; }
+  .cs-card { border-radius: 10px; }
+  .header-brand, .header-type { white-space: nowrap; }
+  .header-product { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="cs-card">
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="inner">
+    <span class="header-brand">Ebix RCS</span>
+    <div class="header-sep"></div>
+    <span class="header-product">Risk &amp; Compliance Solutions</span>
+    <span class="header-type">Case Study</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="inner">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-tag orange">Construction</span>
+      <span class="eyebrow-tag outline">Insurance Compliance</span>
+    </div>
+    <h1>Eliminating Hidden Insurance Exclusions Through <span class="accent">Trade-Aware Oversight</span></h1>
+    <p class="hero-sub">How one national construction firm discovered that certificates of insurance were only telling half the story — and what they built to change that.</p>
+  </div>
+</section>
+
+<!-- METRICS BAR -->
+<div class="metrics-bar">
+  <div class="inner">
+    <div class="metric-cell">
+      <span class="metric-num">$M<sup>+</sup></span>
+      <span class="metric-label">Saved Annually</span>
+      <span class="metric-sub">Exclusionary gaps resolved before claims were filed</span>
+    </div>
+    <div class="metric-cell">
+      <span class="metric-num">60<sup>–70%</sup></span>
+      <span class="metric-label">Less Manual Effort</span>
+      <span class="metric-sub">Compliance review time reduced through automation</span>
+    </div>
+    <div class="metric-cell">
+      <span class="metric-num" style="font-size: clamp(36px, 4.5vw, 56px);">Higher</span>
+      <span class="metric-label">Compliance Rates</span>
+      <span class="metric-sub">Measurably higher across all active projects</span>
+    </div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="body-wrap">
+  <main>
+
+    <!-- SECTION 1 -->
+    <div class="section">
+      <div class="section-eyebrow">The Challenge</div>
+      <h2>A Certificate of Insurance Isn't the Whole Story</h2>
+      <div class="section-rule"></div>
+      <p>For years, construction project managers have relied on certificates of insurance (COIs) to verify that subcontractors carry the right coverage. On the surface, the system works: a subcontractor submits a COI showing the required limits, the box gets checked, and work begins.</p>
+      <p>But buried in the Schedules of Endorsements (SOEs) attached to those same policies are exclusions that can silently invalidate coverage for entire categories of work — residential construction, exterior insulation and finish systems (EIFS), roofing, earthwork, and more. These trade-specific exclusions don't appear on the certificate face. They surface only in the claims process, long after the work is done.</p>
+
+      <div class="callout">
+        <p><strong>The discovery that changed the approach:</strong> A subcontractor's policy showed adequate limits, but their SOE contained an exclusion for residential work. The exposure wasn't discovered until a claim was filed — at which point, coverage was denied. The general contractor absorbed the loss directly.</p>
+      </div>
+
+      <p>This wasn't an isolated incident. It was systematic. And it was invisible to the existing review process.</p>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section">
+      <div class="section-eyebrow">The Problem</div>
+      <h2>Why Traditional Compliance Reviews Miss the Risk</h2>
+      <div class="section-rule"></div>
+      <p>Standard COI collection processes are designed to verify that coverage exists — not to analyze what that coverage actually covers. Most firms never receive SOEs at all, and when they do, the documents are dense, inconsistently formatted, and require deep insurance expertise to interpret.</p>
+      <p>The resulting blind spots are predictable: trade-specific exclusions go unchecked because reviewers don't know to look for them; endorsements arrive on different schedules than certificates; manual tracking systems can't correlate trade scope with exclusion language at scale; and when exceptions do get flagged, there's no structured workflow to resolve them before work begins.</p>
+      <p>For a firm managing hundreds of active subcontractors across multiple simultaneous projects, the risk compounds quickly — and quietly.</p>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="section">
+      <div class="section-eyebrow">The Solution</div>
+      <h2>Trade-Aware Compliance Built for How Construction Actually Works</h2>
+      <div class="section-rule"></div>
+      <p>Ebix RCS was configured with custom rules-based logic that understood not just what coverage a subcontractor carried, but whether that coverage remained intact given the specific trades they were engaged to perform.</p>
+
+      <div class="solution-grid">
+        <div class="sol-card">
+          <div class="sol-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+          </div>
+          <div>
+            <div class="sol-title">Trade-Specific Exclusion Logic</div>
+            <div class="sol-desc">Custom rules mapped each subcontractor's trade scope against known exclusion categories — automatically flagging any SOE language that could invalidate coverage for the work they were hired to perform.</div>
+          </div>
+        </div>
+        <div class="sol-card">
+          <div class="sol-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+          </div>
+          <div>
+            <div class="sol-title">Automated SOE Collection and Validation</div>
+            <div class="sol-desc">The system required SOE submission alongside standard COIs — and validated that submissions were complete, current, and cross-referenced against the rules before any subcontractor could be cleared to work.</div>
+          </div>
+        </div>
+        <div class="sol-card">
+          <div class="sol-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div>
+            <div class="sol-title">Structured Exception Workflows</div>
+            <div class="sol-desc">When an exclusion was flagged, the system routed the exception through a defined resolution workflow — requiring documentation, escalation, or waiver approval before the subcontractor could proceed.</div>
+          </div>
+        </div>
+        <div class="sol-card">
+          <div class="sol-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <div>
+            <div class="sol-title">Real-Time Compliance Dashboards</div>
+            <div class="sol-desc">Project managers and risk teams gained live visibility into compliance status across the entire subcontractor roster — broken out by trade, project, and exception type.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="section">
+      <div class="section-eyebrow">The Results</div>
+      <h2>Measurable Impact Across the Organization</h2>
+      <div class="section-rule"></div>
+      <p>Within the first year, the trade-aware compliance program delivered quantifiable results across risk exposure, operational efficiency, and organizational risk understanding.</p>
+
+      <div class="impact-hero">
+        <div class="big-num">$M<sup>+</sup></div>
+        <div class="impact-hero-content">
+          <div class="impact-hero-label">Annual Savings</div>
+          <div class="impact-hero-desc">Exclusionary coverage gaps identified and resolved before claims were filed — losses that would previously have been absorbed directly by the firm. Each flagged and resolved exclusion represents coverage that was actually intact when the work was performed.</div>
+        </div>
+      </div>
+
+      <div class="impact-sub-grid">
+        <div class="impact-sub">
+          <div class="i-num">60–70%</div>
+          <div class="i-label">Less Manual Effort</div>
+          <div class="i-desc">Compliance review time dropped sharply as automated validation replaced manual SOE cross-referencing and exception tracking.</div>
+        </div>
+        <div class="impact-sub">
+          <div class="i-num">Higher</div>
+          <div class="i-label">Compliance Rates</div>
+          <div class="i-desc">Clear requirements and automated follow-up drove measurable improvement in subcontractor compliance across all active projects.</div>
+        </div>
+        <div class="impact-sub">
+          <div class="i-num">Faster</div>
+          <div class="i-label">Subcontractor Onboarding</div>
+          <div class="i-desc">Structured submission workflows reduced back-and-forth and enabled new subcontractors to clear compliance requirements more quickly.</div>
+        </div>
+      </div>
+
+      <div class="closing-note">
+        <p>Beyond the numbers, the program shifted how the organization understood insurance risk. Risk management, operations, and project leadership developed a shared vocabulary around exclusions and trade scope — turning compliance from a paperwork function into a strategic risk discipline.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="sb-card">
+      <div class="sb-head"><h3>At a Glance</h3></div>
+      <div class="sb-body">
+        <div class="sb-row">
+          <div class="sb-row-label">Industry</div>
+          <div class="sb-row-val">Construction &amp; Contracting</div>
+        </div>
+        <div class="sb-row">
+          <div class="sb-row-label">Organization</div>
+          <div class="sb-row-val">National General Contractor</div>
+        </div>
+        <div class="sb-row">
+          <div class="sb-row-label">Challenge</div>
+          <div class="sb-row-val">Hidden trade exclusions in subcontractor SOEs creating uninsured exposure</div>
+        </div>
+        <div class="sb-row">
+          <div class="sb-row-label">Solution</div>
+          <div class="sb-row-val">Custom Ebix RCS with trade-aware exclusion logic and automated SOE validation</div>
+        </div>
+        <div class="sb-row">
+          <div class="sb-row-label">Primary Outcome</div>
+          <div class="sb-row-val">Millions in annual savings from proactive exposure identification</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sb-card">
+      <div class="sb-head"><h3>Capabilities Applied</h3></div>
+      <div class="tag-wrap">
+        <span class="tag">SOE Analysis</span>
+        <span class="tag">Trade Rules</span>
+        <span class="tag">Auto-Validation</span>
+        <span class="tag">Exception Workflows</span>
+        <span class="tag">Live Dashboards</span>
+        <span class="tag">Sub Management</span>
+        <span class="tag">Risk Reporting</span>
+        <span class="tag">COI Tracking</span>
+      </div>
+    </div>
+
+    <div class="sb-insight">
+      <p><strong>Certificates verify that coverage exists.</strong> Schedules of endorsements determine whether that coverage is actually intact for the work being performed.</p>
+      <p>These are not the same thing. Most compliance programs stop at the certificate. Trade-aware oversight doesn't.</p>
+    </div>
+
+  </aside>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <div class="inner">
+    <span class="footer-brand">Ebix Risk &amp; Compliance Solutions</span>
+    <span class="footer-note">Client details withheld by agreement &nbsp;·&nbsp; <a href="https://davidsmithdesigns.com">davidsmithdesigns.com</a></span>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>

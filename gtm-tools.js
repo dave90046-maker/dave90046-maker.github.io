@@ -86,6 +86,7 @@ function parseSectionBlocks(contentText) {
 
   lines.forEach(line => {
     if (/^(-{3,}|_{3,}|\*{3,})$/.test(line)) return;
+    if (/^[-*•—]$/.test(line)) return;
 
     const bulletText = matchBulletLine(line);
     if (bulletText !== null) {

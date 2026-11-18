@@ -49,9 +49,6 @@
   background: #342f2a;
 }
 
-/* "Previous" link in the case study nav (left aligned) */
-.cs-nav-link.prev { align-items: flex-start; }
-
 @media (max-width: 900px) {
   .work-card-wide .card-full-link { flex-direction: column; }
   .work-card-wide .card-thumb { flex: none; }

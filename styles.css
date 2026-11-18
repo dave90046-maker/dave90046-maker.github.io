@@ -1295,3 +1295,67 @@ footer {
   .work-card-wide .card-body { padding: 1.5rem; }
   .range-grid { grid-template-columns: 1fr; }
 }
+
+/* ─────────────────────────────────────────────
+   HOMEPAGE RESUME SECTIONS
+   Summary, Expertise, Experience, Education
+   (.tile rules are scoped to #expertise because the
+   Creative Range page already uses img.tile)
+   ───────────────────────────────────────────── */
+
+.eyebrow-lg { font-size: 1.125rem; }
+
+/* ── Summary ── */
+#summary { background: var(--bg); border-top: 1px solid var(--border); padding: 4rem 0 2.5rem; }
+.summary-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3rem; align-items: start; }
+.summary-text { font-size: 1.05rem; color: var(--text-2); line-height: 1.8; }
+.summary-points { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+.summary-points li { font-size: 0.9rem; color: var(--text-2); line-height: 1.65; padding-left: 1.1rem; position: relative; }
+.summary-points li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+
+/* ── Expertise / Skills tiles ── */
+#expertise { background: var(--bg); padding: 0 0 4rem; }
+#expertise .tile-wide { margin-top: 1.75rem; }
+#expertise .tile-text { font-size: 0.95rem; color: var(--text-2); line-height: 1.8; }
+#expertise .tile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; }
+#expertise .tile { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1.75rem 2rem; }
+#expertise .tile-title { font-size: 1.125rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; }
+.tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tag { font-size: 0.8rem; font-weight: 500; color: var(--text-2); background: var(--bg-card2); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.3rem 0.7rem; }
+.skill-group + .skill-group { margin-top: 1.1rem; }
+.skill-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); margin-bottom: 0.5rem; }
+.skill-note { font-size: 0.8rem; color: var(--text-2); line-height: 1.6; margin-top: 0.6rem; }
+
+/* ── Experience ── */
+#experience { background: var(--bg-dark); border-top: 1px solid var(--border); }
+.exp-timeline { display: flex; flex-direction: column; gap: 1.75rem; }
+.exp-entry { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1.75rem 2rem; transition: border-color 0.25s; display: grid; grid-template-columns: 300px minmax(0, 36rem); gap: 3rem; align-items: start; }
+.exp-entry:hover { border-color: var(--accent); }
+.exp-head { display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+.exp-role { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+.exp-company { font-size: 0.875rem; color: var(--accent); font-weight: 700; }
+.exp-years { font-size: 1.05rem; font-weight: 700; color: var(--text-2); white-space: nowrap; }
+.exp-highlight { margin-top: 0.9rem; padding-left: 1rem; border-left: 3px solid var(--accent); font-size: 1.3rem; font-weight: 700; color: var(--text); line-height: 1.35; max-width: 17rem; }
+.hl-num { color: var(--accent-h); }
+.exp-highlight::before { content: 'Highlight'; display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+.exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+.exp-bullets li { font-size: 0.95rem; color: var(--text-2); line-height: 1.7; padding-left: 1.1rem; position: relative; }
+.exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+
+/* ── Education ── */
+#education { background: var(--bg); border-top: 1px solid var(--border); padding: 3rem 0; }
+.edu-row { display: flex; gap: 3rem; flex-wrap: wrap; align-items: baseline; }
+.edu-item { font-size: 0.9rem; color: var(--text-2); }
+.edu-item strong { color: var(--text); font-weight: 700; }
+
+@media (max-width: 900px) {
+  .exp-entry { grid-template-columns: 1fr; gap: 1.25rem; }
+  .exp-head { padding-bottom: 1.1rem; border-bottom: 1px solid var(--border); }
+  .exp-bullets { max-width: none; }
+  .exp-highlight { max-width: none; font-size: 1.2rem; }
+}
+@media (max-width: 768px) {
+  .summary-grid, #expertise .tile-grid { grid-template-columns: 1fr; gap: 2rem; }
+  #expertise .tile { padding: 1.5rem; }
+  .exp-entry { padding: 1.5rem; }
+}
